@@ -1,0 +1,296 @@
+{% extends 'base.html' %}
+{% block title %}Admin Panel — Intuit Academy{% endblock %}
+
+{% block extra_css %}
+<style>
+  /* Override default nav for admin */
+  nav { display: none !important; }
+
+  body { background: #f1f5f9; }
+
+  .admin-header {
+    background: #0c4a6e;
+    color: white;
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  .admin-header h2 { font-size: 20px; }
+  .admin-header h2 span { color: #38bdf8; }
+  .admin-header nav { display: flex !important; gap: 20px; }
+  .admin-header nav a {
+    color: #bae6fd;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+  }
+  .admin-header nav a:hover { color: white; }
+
+  .container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+  }
+  .stat {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    border-left: 4px solid #0ea5e9;
+    transition: 0.3s;
+  }
+  .stat:hover { transform: translateY(-3px); }
+  .stat h3 { color: #0c4a6e; font-size: 26px; margin-bottom: 4px; }
+  .stat p { color: #64748b; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  .box {
+    background: white;
+    padding: 25px;
+    border-radius: 14px;
+    margin-bottom: 22px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  }
+  .box h3 {
+    color: #0c4a6e;
+    margin-bottom: 15px;
+    font-size: 17px;
+    border-left: 4px solid #38bdf8;
+    padding-left: 10px;
+  }
+
+  label {
+    display: block;
+    margin-top: 12px;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  input, textarea {
+    width: 100%;
+    padding: 11px 14px;
+    margin-top: 5px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: 0.2s;
+  }
+  input:focus, textarea:focus {
+    outline: none;
+    border-color: #0ea5e9;
+    box-shadow: 0 0 0 3px rgba(14,165,233,0.15);
+  }
+
+  .btn {
+    background: #16a34a;
+    color: white;
+    padding: 12px 22px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 15px;
+    min-height: 44px;
+    transition: 0.3s;
+  }
+  .btn:hover { background: #15803d; }
+
+  .hint { color: #94a3b8; font-size: 12px; margin-top: 5px; font-style: italic; }
+
+  /* Table wrapper for mobile scroll */
+  .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 12px;
+    border-radius: 8px;
+  }
+  table {
+    width: 100%;
+    min-width: 500px;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 12px 10px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 14px;
+  }
+  th {
+    background: #0c4a6e;
+    color: white;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+  tr:hover td { background: #f0f9ff; }
+
+  .gal-preview {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .gal-preview img {
+    width: 100%;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  @media (max-width: 700px) {
+    .admin-header {
+      padding: 14px 18px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .admin-header h2 { font-size: 17px; }
+    .admin-header nav { gap: 14px; }
+    .admin-header nav a { font-size: 13px; }
+
+    .container { margin: 20px auto; padding: 0 14px; }
+    .box { padding: 18px; }
+    .box h3 { font-size: 15px; }
+
+    .stats { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .stat { padding: 15px; }
+    .stat h3 { font-size: 22px; }
+    .stat p { font-size: 11px; }
+
+    .gal-preview { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .gal-preview img { height: 70px; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="admin-header">
+  <h2>🩺 Admin <span>Panel</span></h2>
+  <nav>
+    <a href="/">🌐 View Site</a>
+    <a href="/admin/logout">🚪 Logout</a>
+  </nav>
+</div>
+
+<div class="container">
+
+  <div class="stats">
+    <div class="stat"><h3>{{ programs|length }}</h3><p>Programs</p></div>
+    <div class="stat"><h3>{{ instructors|length }}</h3><p>Instructors</p></div>
+    <div class="stat"><h3>{{ gallery|length }}</h3><p>Gallery</p></div>
+    <div class="stat"><h3>{{ messages|length }}</h3><p>Messages</p></div>
+  </div>
+
+  <div class="box">
+    <h3>➕ Add New Program</h3>
+    <form method="POST" action="/admin/add_program">
+      <label>Program Title</label>
+      <input name="title" placeholder="e.g. Certificate in Dialysis Technology" required>
+
+      <label>Description</label>
+      <textarea name="description" rows="3" required></textarea>
+
+      <label>Duration</label>
+      <input name="duration" placeholder="e.g. 6 Months">
+
+      <label>Fee</label>
+      <input name="fee" placeholder="e.g. ₹35,000">
+
+      <label>Image URL</label>
+      <input name="image_url" placeholder="https://images.unsplash.com/...">
+      <p class="hint">Paste any online image URL</p>
+
+      <button class="btn">Add Program</button>
+    </form>
+  </div>
+
+  <div class="box">
+    <h3>➕ Add New Instructor</h3>
+    <form method="POST" action="/admin/add_instructor">
+      <label>Name</label>
+      <input name="name" placeholder="Dr. Rajesh Kumar" required>
+
+      <label>Designation</label>
+      <input name="designation" placeholder="Nephrologist & Chief Instructor">
+
+      <label>Image URL</label>
+      <input name="image_url" placeholder="https://images.unsplash.com/...">
+
+      <button class="btn">Add Instructor</button>
+    </form>
+  </div>
+
+  <div class="box">
+    <h3>🖼️ Add Gallery Images</h3>
+    <form method="POST" action="/admin/add_gallery">
+      <label>Image URLs (comma-separated)</label>
+      <textarea name="image_urls" rows="3" placeholder="https://url1.jpg, https://url2.jpg"></textarea>
+
+      <button class="btn">Add Images</button>
+    </form>
+  </div>
+
+  <div class="box">
+    <h3>📚 All Programs ({{ programs|length }})</h3>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Title</th><th>Duration</th><th>Fee</th></tr>
+        {% for p in programs %}
+        <tr><td>{{ p.title }}</td><td>{{ p.duration }}</td><td>{{ p.fee }}</td></tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>👨‍⚕️ All Instructors ({{ instructors|length }})</h3>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Name</th><th>Designation</th></tr>
+        {% for i in instructors %}
+        <tr><td>{{ i.name }}</td><td>{{ i.designation }}</td></tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>🖼️ Gallery ({{ gallery|length }})</h3>
+    <div class="gal-preview">
+      {% for img in gallery %}
+      <img src="{{ img }}">
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="box">
+    <h3>✉️ Messages ({{ messages|length }})</h3>
+    {% if messages %}
+    <div class="table-wrap">
+      <table>
+        <tr><th>Name</th><th>Email</th><th>Message</th></tr>
+        {% for m in messages %}
+        <tr><td>{{ m.name }}</td><td>{{ m.email }}</td><td>{{ m.message }}</td></tr>
+        {% endfor %}
+      </table>
+    </div>
+    {% else %}
+    <p class="hint">No messages yet.</p>
+    {% endif %}
+  </div>
+
+</div>
+
+{% endblock %}

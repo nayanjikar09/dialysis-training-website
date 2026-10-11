@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% block title %}Instructors — Intuit Academy{% endblock %}
+
+{% block extra_css %}
+<style>
+  .container { max-width: 1150px; margin: 50px auto; padding: 0 20px; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 24px;
+  }
+
+  .card {
+    background: white;
+    border-radius: 18px;
+    text-align: center;
+    padding: 35px 20px 25px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    transition: 0.35s;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 80px;
+    background: linear-gradient(135deg, #0c4a6e, #0ea5e9);
+  }
+  .card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(12,74,110,0.18);
+  }
+  .card img {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid white;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    margin: 0 auto 15px;
+  }
+  .card h3 { color: #0c4a6e; font-size: 18px; margin-bottom: 6px; position: relative; z-index: 2; }
+  .card .role { color: #0ea5e9; font-weight: 600; font-size: 13px; margin-bottom: 10px; }
+  .card .badge {
+    display: inline-block;
+    background: #e0f2fe;
+    color: #0c4a6e;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+
+  .empty { text-align: center; color: #64748b; padding: 60px 20px; }
+
+  @media (max-width: 700px) {
+    .container { margin: 30px auto; padding: 0 15px; }
+    .grid { grid-template-columns: 1fr; gap: 18px; }
+    .card { padding: 30px 18px 22px; }
+    .card img { width: 100px; height: 100px; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="hero" style="padding:60px 20px;">
+  <h1>Our Expert Instructors</h1>
+  <p>Learn from practicing nephrologists & dialysis specialists</p>
+</div>
+
+<div class="container">
+  {% if instructors %}
+  <div class="grid">
+    {% for i in instructors %}
+    <div class="card">
+      <img src="{{ i.image }}" alt="{{ i.name }}">
+      <h3>{{ i.name }}</h3>
+      <p class="role">{{ i.designation }}</p>
+      <span class="badge">Dialysis Expert</span>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty">👨‍⚕️ No instructors added yet.</div>
+  {% endif %}
+</div>
+
+{% endblock %}

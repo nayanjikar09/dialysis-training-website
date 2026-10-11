@@ -1,0 +1,327 @@
+{% extends 'base.html' %}
+{% block title %}Intuit Academy — Dialysis Technician Training{% endblock %}
+
+{% block extra_css %}
+<style>
+  /* HERO */
+  .hero-home {
+    background: linear-gradient(rgba(12,74,110,0.9), rgba(15,23,42,0.95)),
+                url('https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=1600') center/cover;
+    color: white;
+    text-align: center;
+    padding: 110px 20px 90px;
+  }
+  .hero-home .badge {
+    display: inline-block;
+    background: rgba(56,189,248,0.15);
+    color: #38bdf8;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #38bdf8;
+  }
+  .hero-home h1 {
+    font-size: 48px;
+    line-height: 1.15;
+    margin-bottom: 18px;
+    max-width: 850px;
+    margin-left: auto; margin-right: auto;
+  }
+  .hero-home h1 span { color: #38bdf8; }
+  .hero-home p {
+    font-size: 18px;
+    color: #e0f2fe;
+    margin-bottom: 32px;
+    max-width: 650px;
+    margin-left: auto; margin-right: auto;
+  }
+  .hero-btns {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .hero-btns .btn { min-width: 180px; }
+
+  /* STATS */
+  .stats {
+    background: white;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    padding: 35px 25px;
+    max-width: 1000px;
+    margin: -50px auto 0;
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    position: relative;
+    z-index: 10;
+  }
+  .stat { text-align: center; }
+  .stat h2 { font-size: 32px; color: #0c4a6e; }
+  .stat p { color: #64748b; font-size: 13px; }
+
+  /* SECTIONS */
+  section { padding: 70px 20px; max-width: 1200px; margin: auto; }
+  .section-title {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: #0c4a6e;
+  }
+  .section-sub {
+    text-align: center;
+    color: #64748b;
+    margin-bottom: 40px;
+    font-size: 15px;
+  }
+
+  /* CARDS */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+  .card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,0.12); }
+  .card img { width: 100%; height: 200px; object-fit: cover; }
+  .card-body { padding: 22px; flex: 1; display: flex; flex-direction: column; }
+  .card-body h3 { color: #0c4a6e; margin-bottom: 10px; font-size: 19px; }
+  .card-body p { color: #64748b; font-size: 14px; flex: 1; }
+  .meta {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+  }
+  .meta span {
+    background: #e0f2fe;
+    color: #0c4a6e;
+    padding: 5px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+
+  /* FEATURES */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 22px;
+  }
+  .feature {
+    background: white;
+    padding: 28px 18px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    transition: 0.3s;
+  }
+  .feature:hover { transform: translateY(-5px); }
+  .feature .icon {
+    font-size: 32px;
+    background: #e0f2fe;
+    width: 70px; height: 70px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 15px;
+  }
+  .feature h3 { color: #0c4a6e; margin-bottom: 8px; font-size: 17px; }
+  .feature p { color: #64748b; font-size: 13px; }
+
+  /* INSTRUCTORS */
+  .instructor-card { text-align: center; padding-bottom: 20px; }
+  .instructor-card img {
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 20px auto 12px;
+    border: 4px solid #e0f2fe;
+  }
+
+  /* GALLERY */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 14px;
+  }
+  .gallery-grid img {
+    width: 100%; height: 170px; object-fit: cover;
+    border-radius: 12px;
+    transition: 0.3s;
+  }
+  .gallery-grid img:hover { transform: scale(1.05); }
+
+  /* CTA */
+  .cta {
+    background: linear-gradient(135deg, #0c4a6e, #0f172a);
+    color: white;
+    text-align: center;
+    padding: 55px 25px;
+    border-radius: 20px;
+    margin: 40px 20px;
+  }
+  .cta h2 { font-size: 28px; margin-bottom: 12px; }
+  .cta p { color: #bae6fd; margin-bottom: 22px; }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 900px) {
+    .hero-home h1 { font-size: 34px; }
+    .hero-home p { font-size: 15px; }
+    .section-title { font-size: 26px; }
+  }
+
+  @media (max-width: 600px) {
+    .hero-home { padding: 70px 16px 70px; }
+    .hero-home h1 { font-size: 26px; }
+    .hero-home p { font-size: 14px; }
+    .hero-btns { flex-direction: column; align-items: stretch; }
+    .hero-btns .btn { width: 100%; }
+
+    .stats { margin-top: -35px; padding: 25px 15px; gap: 15px; }
+    .stat h2 { font-size: 24px; }
+
+    section { padding: 50px 15px; }
+    .section-title { font-size: 22px; }
+    .section-sub { font-size: 14px; }
+
+    .grid { grid-template-columns: 1fr; gap: 18px; }
+    .features { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .feature { padding: 20px 12px; }
+    .feature .icon { width: 55px; height: 55px; font-size: 24px; }
+    .feature h3 { font-size: 14px; }
+    .feature p { font-size: 12px; }
+
+    .gallery-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .gallery-grid img { height: 130px; }
+
+    .cta { padding: 40px 20px; margin: 30px 15px; }
+    .cta h2 { font-size: 22px; }
+    .cta p { font-size: 14px; }
+  }
+
+  @media (max-width: 380px) {
+    .features { grid-template-columns: 1fr; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<div class="hero-home">
+  <div class="badge">🏥 Certified Dialysis Training Institute</div>
+  <h1>Become a <span>Certified Dialysis Technician</span></h1>
+  <p>Hands-on training on real dialysis machines. Upskilling for existing medical staff and complete certification for new students.</p>
+  <div class="hero-btns">
+    <a href="#programs" class="btn btn-sky">View Programs</a>
+    <a href="/contact" class="btn">Enroll Now</a>
+  </div>
+</div>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat"><h2>2000+</h2><p>Technicians Trained</p></div>
+  <div class="stat"><h2>4</h2><p>Certified Programs</p></div>
+  <div class="stat"><h2>100%</h2><p>Hands-on Training</p></div>
+  <div class="stat"><h2>50+</h2><p>Partner Hospitals</p></div>
+</div>
+
+<!-- FEATURES -->
+<section>
+  <h2 class="section-title">Why Choose Intuit Academy?</h2>
+  <p class="section-sub">Built for real hospital & dialysis center environments</p>
+  <div class="features">
+    <div class="feature">
+      <div class="icon">🩸</div>
+      <h3>Real Machine Training</h3>
+      <p>Practice on Fresenius, Nipro & B.Braun machines.</p>
+    </div>
+    <div class="feature">
+      <div class="icon">🎓</div>
+      <h3>Certified Programs</h3>
+      <p>Certificate & Diploma recognized by hospitals.</p>
+    </div>
+    <div class="feature">
+      <div class="icon">👨‍⚕️</div>
+      <h3>Expert Nephrologists</h3>
+      <p>Learn from practicing kidney specialists.</p>
+    </div>
+    <div class="feature">
+      <div class="icon">💼</div>
+      <h3>Job Assistance</h3>
+      <p>Placement support in top hospitals.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRAMS -->
+<section id="programs" style="background: white; max-width: 100%;">
+  <div style="max-width: 1200px; margin: auto;">
+    <h2 class="section-title">Our Certification Programs</h2>
+    <p class="section-sub">Certificate, Diploma, or Upskilling — pick your path</p>
+    <div class="grid">
+      {% for p in programs %}
+      <div class="card">
+        <img src="{{ p.image }}" alt="{{ p.title }}">
+        <div class="card-body">
+          <h3>{{ p.title }}</h3>
+          <p>{{ p.description }}</p>
+          <div class="meta">
+            <span>⏱ {{ p.duration }}</span>
+            <span>💰 {{ p.fee }}</span>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- INSTRUCTORS -->
+<section>
+  <h2 class="section-title">Meet Our Instructors</h2>
+  <p class="section-sub">Nephrologists & dialysis experts</p>
+  <div class="grid">
+    {% for i in instructors %}
+    <div class="card instructor-card">
+      <img src="{{ i.image }}" alt="{{ i.name }}">
+      <div class="card-body">
+        <h3>{{ i.name }}</h3>
+        <p>{{ i.designation }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section style="background: white; max-width: 100%;">
+  <div style="max-width: 1200px; margin: auto;">
+    <h2 class="section-title">Training Gallery</h2>
+    <p class="section-sub">Inside our dialysis training lab</p>
+    <div class="gallery-grid">
+      {% for img in gallery[:6] %}
+      <img src="{{ img }}" alt="Gallery">
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta">
+  <h2>Start Your Dialysis Career Today</h2>
+  <p>Join India's most practical dialysis technician training program.</p>
+  <a href="/contact" class="btn btn-sky">Apply Now</a>
+</div>
+
+{% endblock %}

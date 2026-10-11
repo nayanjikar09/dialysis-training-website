@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block title %}Gallery — Intuit Academy{% endblock %}
+
+{% block extra_css %}
+<style>
+  .container { max-width: 1150px; margin: 40px auto; padding: 0 20px; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 18px;
+  }
+  .item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+    cursor: pointer;
+    aspect-ratio: 4/3;
+  }
+  .item img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .item:hover img { transform: scale(1.1); }
+  .item::after {
+    content: '🔍 View';
+    position: absolute;
+    inset: 0;
+    background: rgba(12,74,110,0.75);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    opacity: 0;
+    transition: 0.3s;
+    font-size: 16px;
+  }
+  .item:hover::after { opacity: 1; }
+
+  .empty {
+    text-align: center;
+    color: #64748b;
+    padding: 60px 20px;
+    font-size: 16px;
+  }
+
+  @media (max-width: 700px) {
+    .container { margin: 25px auto; padding: 0 15px; }
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .item::after { font-size: 13px; }
+  }
+
+  @media (max-width: 380px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="hero" style="padding:60px 20px;">
+  <h1>Training Gallery</h1>
+  <p>Inside our dialysis training lab</p>
+</div>
+
+<div class="container">
+  {% if images %}
+  <div class="grid">
+    {% for img in images %}
+    <div class="item">
+      <img src="{{ img }}" alt="Training image">
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty">📷 No images yet. Please check back soon.</div>
+  {% endif %}
+</div>
+
+{% endblock %}

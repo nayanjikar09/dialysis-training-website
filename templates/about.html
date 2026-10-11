@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block title %}About — Intuit Academy{% endblock %}
+
+{% block extra_css %}
+<style>
+  .container {
+    max-width: 950px;
+    margin: 40px auto;
+    padding: 40px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  }
+  h2 {
+    color: #0c4a6e;
+    margin: 25px 0 12px;
+    font-size: 24px;
+    border-left: 4px solid #38bdf8;
+    padding-left: 12px;
+  }
+  h2:first-child { margin-top: 0; }
+  p { color: #475569; line-height: 1.8; margin-bottom: 12px; }
+  ul { margin-left: 25px; line-height: 2; color: #334155; }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-top: 18px;
+  }
+  .info-box {
+    background: #f0f9ff;
+    padding: 18px;
+    border-radius: 12px;
+    border-left: 4px solid #0ea5e9;
+  }
+  .info-box h3 { color: #0c4a6e; margin-bottom: 6px; font-size: 15px; }
+  .info-box p { font-size: 13px; margin: 0; }
+
+  @media (max-width: 700px) {
+    .container { padding: 25px 20px; margin: 25px 15px; }
+    h2 { font-size: 19px; }
+    .grid-2 { grid-template-columns: 1fr; }
+    ul { margin-left: 18px; line-height: 1.9; font-size: 14px; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="hero" style="padding:60px 20px;">
+  <h1>About Intuit Academy</h1>
+  <p>Specialized Dialysis Technician Training Institute</p>
+</div>
+
+<div class="container">
+
+  <h2>Who We Are</h2>
+  <p><strong>Intuit Academy</strong> is a specialized training institute focused on <strong>Dialysis Technology</strong>. We train both new students entering the medical field and existing medical staff looking to upskill in dialysis care.</p>
+
+  <h2>Our Mission</h2>
+  <p>To produce skilled, certified, and job-ready dialysis technicians through <strong>hands-on training on real dialysis machines</strong> under the guidance of experienced nephrologists and senior technicians.</p>
+
+  <h2>Who Can Join?</h2>
+  <div class="grid-2">
+    <div class="info-box"><h3>🎓 New Students</h3><p>12th pass (Science) or equivalent</p></div>
+    <div class="info-box"><h3>👩‍⚕️ Nursing Graduates</h3><p>GNM / B.Sc Nursing holders</p></div>
+    <div class="info-box"><h3>🏥 Working Staff</h3><p>Hospital nurses & technicians seeking upskilling</p></div>
+    <div class="info-box"><h3>💼 Dialysis Center Staff</h3><p>Existing staff seeking formal certification</p></div>
+  </div>
+
+  <h2>What You'll Learn</h2>
+  <ul>
+    <li>🩸 Kidney anatomy & renal failure basics</li>
+    <li>🩸 Hemodialysis procedure & machine operation</li>
+    <li>🩸 Peritoneal dialysis techniques</li>
+    <li>🩸 Vascular access (fistula, catheter) handling</li>
+    <li>🩸 Patient monitoring & emergency response</li>
+    <li>🩸 Infection control & dialyzer reuse protocols</li>
+  </ul>
+
+  <h2>Our Programs</h2>
+  <ul>
+    <li>📜 <strong>Certificate in Dialysis Technology</strong> — 6 Months</li>
+    <li>📜 <strong>Diploma in Dialysis Technology</strong> — 1 Year</li>
+    <li>📜 <strong>Advanced Certificate for Medical Staff</strong> — 3 Months</li>
+    <li>📜 <strong>Hands-on Dialysis Workshop</strong> — 2 Weeks</li>
+  </ul>
+
+  <h2>Why Choose Us</h2>
+  <ul>
+    <li>✔ Hands-on training on Fresenius, Nipro & B.Braun machines</li>
+    <li>✔ Certified by hospitals & dialysis centers</li>
+    <li>✔ Placement assistance after course completion</li>
+    <li>✔ Small batches for personalized attention</li>
+    <li>✔ Taught by practicing nephrologists</li>
+  </ul>
+
+</div>
+
+{% endblock %}
